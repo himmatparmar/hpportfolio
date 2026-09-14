@@ -1,0 +1,29 @@
+{
+  "skills": [
+    { "id": 1, "name": "HTML5", "image": "/images/skills/htmlImg.png" },
+    { "id": 2, "name": "CSS3", "image": "/images/skills/cssImg.png" },
+    { "id": 3, "name": "JavaScript", "image": "/images/skills/jsImg.png" },
+    { "id": 4, "name": "Bootstrap", "image": "/images/skills/bootstrapImg.png" },
+    { "id": 5, "name": "React", "image": "/images/skills/reactImg.png" },
+    { "id": 6, "name": "Angular", "image": "/images/skills/angularImg.png" },
+    { "id": 7, "name": "Salesforce", "image": "/images/skills/salesforceImg.png" },
+    { "id": 8, "name": "Marketing Cloud", "image": "/images/skills/marketingImg.png" }
+  ],
+  "softwares": [
+    { "id": 1, "name": "Sublime Text", "image": "/images/softwares/sublimeImg.png" },
+    { "id": 2, "name": "VS Code", "image": "/images/softwares/vsCodeImg.png" },
+    { "id": 3, "name": "Figma", "image": "/images/softwares/figmaImg.png" },
+    { "id": 4, "name": "Adobe XD", "image": "/images/softwares/xdImg.png" },
+    { "id": 5, "name": "Photoshop", "image": "/images/softwares/photoImg.png" }
+  ],
+  "certificates": [
+    { "id": 1, "name": "Infosys Certificate", "image": "/images/certificates/InfosysCertificate.png" },
+    { "id": 2, "name": "Marketing Cloud", "image": "/images/certificates/marketingCloud.png" },
+    { "id": 3, "name": "Copado Certified Copado AI", "image": "/images/certificates/CopadoCertifiedCopadoAI.jpg" },
+    { "id": 4, "name": "Salesforce AI", "image": "/images/certificates/SalesforceAI.jpg" },
+    { "id": 5, "name": "Problem Solver", "image": "/images/certificates/problemSolver.png" }
+  ],
+  "events": [
+    { "id": 1, "name": "Agentblazer", "image": "/images/events/agentblazerBanner.png" }
+  ]
+}

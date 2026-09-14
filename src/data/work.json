@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "expinnerTitle": "8th June 2026 - Till Date",
+    "expCompany": "Infosys",
+    "expPostion": "Lead Consultant",
+    "exProjects": "Sysco | Wholesale Restaurant Food Distributor",
+    "exDev": "> Got hired from contract to Inofsys on roll & roject build using Salesforce - LWC. Mobile & Web Application",
+    "exRespo": "> Won One time award and One time Recognition for Ontime Delivery and Prodcutive Clean UI, Managed client interactions and communications. <br> > Translated design specifications into high-quality LWC UI. <br> > Converted design Figma mockups into functional LWC, HTML and CSS code."
+  },
+  {
+    "id": 2,
+    "expinnerTitle": "7th Feb 2025 - 5th June 2026",
+    "expCompany": "Br Raysoft - Client (Infosys)",
+    "expPostion": "Sr. Salesforce UI - Consultant",
+    "exProjects": "Sysco | Wholesale Restaurant Food Distributor",
+    "exDev": "> The project build using Salesforce - LWC. Mobile & Web Application",
+    "exRespo": "> Won One time award and One time Recognition for Ontime Delivery and Prodcutive Clean UI, Managed client interactions and communications. <br> > Translated design specifications into high-quality LWC UI. <br> > Converted design Figma mockups into functional LWC, HTML and CSS code."
+  },
+  {
+    "id": 3,
+    "expinnerTitle": "17th July 2024 - 25th Dec 2024",
+    "expCompany": "Wipro",
+    "expPostion": "Tech Lead",
+    "exProjects": "> Telefonica - Germany (Telecommunication) <br> > BMS - Health Care <br> > Honda - Automobile",
+    "exDev": "All the above project was developed in LWC and my role in handling HTML Structure and CSS.",
+    "exRespo": "> Managed client interactions and communications.<br> > Translated design specifications into high-quality HTML, CSS, and jQuery.<br> > Converted design Figma mockups into functional HTML and CSS code."
+  },
+  {
+    "id": 4,
+    "expinnerTitle": "7th June 2021 - 16th July 2024",
+    "expCompany": "Mphasis Silverline CRM",
+    "expPostion": "Sr. Salesforce UI Developer",
+    "exProjects": "> Empower <br> > Metro Health Plus - Health Domain <br> > Arvest - Health Domain <br> > Wintrust - Finance Domain <br> > DCI (Israel bonds) - Finance Domain <br> > Customer Bank- Finance Domain",
+    "exDev": "> This project is developed in the Salesforce Designing Environment (SLDS) HTML5, CSS3, and JavaScript.",
+    "exRespo": "> Managed a team of 5 to 6 members, ensuring smooth project execution and meeting deadlines. <br> > Handled client interactions to gather requirements and provide project updates.<br> > Converted design mockups into functional HTML and CSS code.<br> > Developed and maintained Email Templates, Content Blocks, Landing Pages, and Cloud Pages in Salesforce."
+  },
+  {
+    "id": 5,
+    "expinnerTitle": "1st Sept 2020 - 31st May 2021",
+    "expCompany": "Accion Labs - Client (IBM)",
+    "expPostion": "Sr. UI Developer",
+    "exProjects": "> Baxter – Health Domain",
+    "exDev": "> The project was developed using HTML5, CSS3, and jQuery, with the backend implemented in Salesforce.",
+    "exRespo": "> Managed client interactions and communications. <br> > Led a team of five developers, ensuring project milestones were met and quality standards were maintained. <br> > Translated design specifications into high-quality HTML, CSS, and jQuery. <br> > Implemented animations and interactive features using jQuery."
+  },
+  {
+    "id": 6,
+    "expinnerTitle": "17th Oct 2018 - 31st Aug 2020",
+    "expCompany": "Edkal Technologies Pvt Ltd. - Client (IBM)",
+    "expPostion": "Sr. UI Developer",
+    "exProjects": "> Lodha Group and Palava City",
+    "exDev": "> The project was developed using HTML5, CSS3, jQuery & implemented backend with Drupal",
+    "exRespo": "> Client management and communication <br> > Converting design mockups into responsive HTML and CSS <br>> Implementing animations using jQuery"
+  },
+  {
+    "id": 7,
+    "expinnerTitle": "21st Jan 2016 - 7th Sept 2018",
+    "expCompany": "Webmaffia (Pixtop Media Solution)",
+    "expPostion": "UI Developer",
+    "exProjects": "Webmaffia, HDFC Bank, Kotak Bank, Money Loji, Bisleri, Fab Getaways, Saffola Fit Foodie, Saffola Oils, Work Better India, Umeedhfc, Ozone Group, Draqua Guard, Euro Clean, Ask Pravi",
+    "exDev": "> The project was developed using HTML5, CSS3, jQuery & implemented backend with Drupal",
+    "exRespo": "> Client handling<br> > Converting design mockups into functional HTML, CSS, and jQuery code<br> > Implementing animations using jQuery"
+  },
+  {
+    "id": 8,
+    "expinnerTitle": "19th Nov 2015 - 25th Dec 2015",
+    "expCompany": "SNSEpro.com",
+    "expPostion": "UI Developer",
+    "exProjects": "> Travellogue - Travel Domain <br> > TypeThought - Health Domain",
+    "exDev": "> This project we developed in HTML5, CSS3, jQuery, Backend was developed in Yii2(PHP Framework)",
+    "exRespo": "> Responsibilities were converting the design into HTML, CSS, and jQuery for animations."
+  },
+  {
+    "id": 9,
+    "expinnerTitle": "15th Dec 2012 - 15th Nov 2015",
+    "expCompany": "DotlineInc.",
+    "expPostion": "UI Developer",
+    "exProjects": "> Waves Research - Finance Domain <br> > Labtop Instruments - Health Domain <br> > Laxmi Marketing - Finance Domain <br> > NTD Trading - Finance Domain",
+    "exDev": "> This project we developed in HTML5, CSS3, jQuery, and Backend was developed in PHP.",
+    "exRespo": "> Responsibilities were converting the design into HTML, CSS, and jQuery for animations."
+  }
+]

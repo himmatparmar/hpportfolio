@@ -1,0 +1,133 @@
+/* ==========================================================================
+   Desktop Hide Rule (Only shows up on screens under 1200px)
+   ========================================================================== */
+.mobile-menu-container {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .mobile-menu-container {
+    display: block;
+  }
+
+  /* Floating Trigger Button (Bottom Right) */
+  .menu-trigger {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    z-index: 2001; /* Must sit above the overlay */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+  }
+
+  .menu-trigger:active {
+    transform: scale(0.9);
+  }
+
+  /* Hamburger Lines */
+  .hamburger-line {
+    width: 24px;
+    height: 2px;
+    background-color: #ffffff;
+    transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+
+  /* Morph Hamburger to "X" when open */
+  .menu-trigger.open .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .menu-trigger.open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-trigger.open .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ==========================================================================
+     Water Droplet Overlay Animation
+     ========================================================================== */
+  .mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 2000;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Droplet starting point: Small circle right over the button */
+    clip-path: circle(0px at calc(100% - 60px) calc(100% - 60px));
+    
+    /* Using custom cubic-bezier curve to give it a liquid bounce/snap speed */
+    transition: clip-path 0.65s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  /* Droplet Expansion State */
+  .mobile-nav-overlay.active {
+    /* Expands out symmetrically like a drop hitting water */
+    clip-path: circle(150% at calc(100% - 60px) calc(100% - 60px));
+  }
+
+  /* Navigation Links Layout */
+  .mobile-links-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+  }
+
+  /* Fade links in slightly after overlay begins expanding */
+  .mobile-nav-overlay.active .mobile-links-wrapper {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Link Styling */
+  .mobile-links-wrapper a {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    padding: 10px 20px;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  /* Active line indicator underneath mobile links */
+  .mobile-links-wrapper a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: #ffffff;
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+
+  .mobile-links-wrapper a.active-link::after {
+    width: 60%;
+    left: 20%;
+  }
+}

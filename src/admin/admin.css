@@ -1,0 +1,161 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f4f5f7;
+  color: #1d1f27;
+}
+
+.admin-app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 20px 80px;
+}
+
+.admin-header h1 {
+  margin: 0 0 4px;
+  font-size: 24px;
+}
+
+.admin-header p {
+  margin: 0 0 20px;
+  color: #666;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-tabs button {
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: #555;
+  border-bottom: 3px solid transparent;
+}
+
+.admin-tabs button.active {
+  color: #111;
+  border-bottom-color: #4a56e2;
+  font-weight: 600;
+}
+
+.save-bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+}
+
+.save-btn {
+  background: #4a56e2;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.save-btn:hover { background: #3944c9; }
+
+.status { font-size: 14px; color: #666; }
+.status.ok { color: #1a9c4a; }
+.status.error { color: #d32f2f; }
+
+.list-item, .image-item {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.list-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #444;
+}
+
+.list-item-actions { display: flex; gap: 6px; }
+
+.list-item-actions button {
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.list-item-actions button.danger { color: #d32f2f; border-color: #f0c4c4; }
+.list-item-actions button:disabled { opacity: 0.4; cursor: default; }
+
+.field {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.field span {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.field input[type="text"], .field textarea, .field input[type="file"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.add-btn {
+  background: #eef0ff;
+  color: #4a56e2;
+  border: 1px dashed #b8c0f5;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.image-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.image-preview {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  background: #f4f5f7;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.image-item-fields { flex: 1; }
+
+h3 { margin-top: 28px; margin-bottom: 10px; }
