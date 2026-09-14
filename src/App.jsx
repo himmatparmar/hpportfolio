@@ -3,7 +3,7 @@ import './App.css'
 import Header from './Header'
 import Banner from './Banner'
 import Work from './Work'
-import Education from './education'
+import Education from './Education'
 import Skills from './Skills'
 import Gettouch from './Gettouch'
 import Insta from './Insta';
