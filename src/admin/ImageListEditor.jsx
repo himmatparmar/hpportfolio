@@ -45,7 +45,7 @@ export default function ImageListEditor({ items, onChange }) {
         const { isDragOver, ...dragEvents } = containerProps(index);
         return (
           <div className={`image-item${isDragOver ? ' drag-over' : ''}`} key={item.id} {...dragEvents}>
-            <span className="drag-handle" {...dragHandleProps(index)} title="Drag to reorder">⠿</span>
+            <span className="drag-handle" {...dragHandleProps(index)} title="Drag to reorder"><i className="fa-solid fa-grip-vertical" /></span>
             {item.image && <img src={item.image} alt={item.name} className="image-preview" />}
             <div className="image-item-fields">
               <label className="field">
@@ -62,14 +62,14 @@ export default function ImageListEditor({ items, onChange }) {
               </label>
             </div>
             <div className="list-item-actions">
-              <button type="button" onClick={() => onChange(move(items, index, -1))} disabled={index === 0}>↑</button>
-              <button type="button" onClick={() => onChange(move(items, index, 1))} disabled={index === items.length - 1}>↓</button>
-              <button type="button" className="danger" onClick={() => removeItem(index)}>Delete</button>
+              <button type="button" onClick={() => onChange(move(items, index, -1))} disabled={index === 0} title="Move up"><i className="fa-solid fa-chevron-up" /></button>
+              <button type="button" onClick={() => onChange(move(items, index, 1))} disabled={index === items.length - 1} title="Move down"><i className="fa-solid fa-chevron-down" /></button>
+              <button type="button" className="danger" onClick={() => removeItem(index)}><i className="fa-solid fa-trash" /> Delete</button>
             </div>
           </div>
         );
       })}
-      <button type="button" className="add-btn" onClick={addItem}>+ Add item</button>
+      <button type="button" className="add-btn" onClick={addItem}><i className="fa-solid fa-plus" /> Add item</button>
     </div>
   );
 }

@@ -9,9 +9,20 @@ import seedBanner from '../data/banner.json';
 import seedGettouch from '../data/gettouch.json';
 import seedSkills from '../data/skills.json';
 import seedInsta from '../data/insta.json';
+import hpLogo from '../assets/hpLogo.png';
 import './admin.css';
 
 const TABS = ['Work', 'Education', 'Banner', 'Contact', 'Skills', 'Instagram', 'Password'];
+
+const TAB_ICONS = {
+  Work: 'fa-solid fa-briefcase',
+  Education: 'fa-solid fa-graduation-cap',
+  Banner: 'fa-solid fa-user',
+  Contact: 'fa-solid fa-envelope',
+  Skills: 'fa-solid fa-star',
+  Instagram: 'fa-brands fa-instagram',
+  Password: 'fa-solid fa-lock',
+};
 
 const WORK_FIELDS = [
   { key: 'expCompany', label: 'Company' },
@@ -30,10 +41,12 @@ const EDUCATION_FIELDS = [
 function SaveBar({ status, errorMessage, onSave }) {
   return (
     <div className="save-bar">
-      <button type="button" className="save-btn" onClick={onSave}>Save changes</button>
-      {status === 'saving' && <span className="status">Saving…</span>}
-      {status === 'saved' && <span className="status ok">Saved ✓</span>}
-      {status === 'error' && <span className="status error">{errorMessage || 'Save failed'}</span>}
+      <button type="button" className="save-btn" onClick={onSave}>
+        <i className="fa-solid fa-floppy-disk" /> Save changes
+      </button>
+      {status === 'saving' && <span className="status"><i className="fa-solid fa-spinner fa-spin" /> Saving…</span>}
+      {status === 'saved' && <span className="status ok"><i className="fa-solid fa-circle-check" /> Saved</span>}
+      {status === 'error' && <span className="status error"><i className="fa-solid fa-circle-exclamation" /> {errorMessage || 'Save failed'}</span>}
     </div>
   );
 }
@@ -68,7 +81,7 @@ function useSection(section, seed) {
 
 function WorkTab() {
   const { data, setData, status, errorMessage, save, loaded } = useSection('work', seedWork);
-  if (!loaded) return <p>Loading…</p>;
+  if (!loaded) return <p className="loading-state"><i className="fa-solid fa-spinner fa-spin" /> Loading…</p>;
   return (
     <div>
       <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
@@ -84,7 +97,7 @@ function WorkTab() {
 
 function EducationTab() {
   const { data, setData, status, errorMessage, save, loaded } = useSection('education', seedEducation);
-  if (!loaded) return <p>Loading…</p>;
+  if (!loaded) return <p className="loading-state"><i className="fa-solid fa-spinner fa-spin" /> Loading…</p>;
   return (
     <div>
       <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
@@ -100,7 +113,7 @@ function EducationTab() {
 
 function BannerTab() {
   const { data, setData, status, errorMessage, save, loaded } = useSection('banner', seedBanner);
-  if (!loaded) return <p>Loading…</p>;
+  if (!loaded) return <p className="loading-state"><i className="fa-solid fa-spinner fa-spin" /> Loading…</p>;
   return (
     <div>
       <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
@@ -115,7 +128,7 @@ function BannerTab() {
 
 function ContactTab() {
   const { data, setData, status, errorMessage, save, loaded } = useSection('gettouch', seedGettouch);
-  if (!loaded) return <p>Loading…</p>;
+  if (!loaded) return <p className="loading-state"><i className="fa-solid fa-spinner fa-spin" /> Loading…</p>;
   return (
     <div>
       <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
@@ -138,7 +151,7 @@ function ContactTab() {
 
 function SkillsTab() {
   const { data, setData, status, errorMessage, save, loaded } = useSection('skills', seedSkills);
-  if (!loaded) return <p>Loading…</p>;
+  if (!loaded) return <p className="loading-state"><i className="fa-solid fa-spinner fa-spin" /> Loading…</p>;
   const setGroup = (key) => (items) => setData({ ...data, [key]: items });
   return (
     <div>
@@ -157,7 +170,7 @@ function SkillsTab() {
 
 function InstaTab() {
   const { data, setData, status, errorMessage, save, loaded } = useSection('insta', seedInsta);
-  if (!loaded) return <p>Loading…</p>;
+  if (!loaded) return <p className="loading-state"><i className="fa-solid fa-spinner fa-spin" /> Loading…</p>;
   return (
     <div>
       <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
@@ -174,7 +187,7 @@ function InstaTab() {
         items={data.postUrls}
         onChange={(postUrls) => setData({ ...data, postUrls })}
         itemLabel="Post"
-        addLabel="+ Add post URL"
+        addLabel="Add post URL"
         rows={1}
       />
     </div>
@@ -228,13 +241,18 @@ function PasswordTab() {
   };
 
   if (stage === 'done') {
-    return <p>Password changed — you're still logged in with the new password.</p>;
+    return (
+      <div className="password-form password-done">
+        <div className="password-done-icon"><i className="fa-solid fa-circle-check" /></div>
+        <p>Password changed — you're still logged in with the new password.</p>
+      </div>
+    );
   }
 
   if (stage === 'code') {
     return (
       <form className="password-form" onSubmit={confirm}>
-        <p>Enter the 6-digit code emailed to you. It expires in 10 minutes.</p>
+        <p><i className="fa-solid fa-envelope-circle-check" /> Enter the 6-digit code emailed to you. It expires in 10 minutes.</p>
         <label className="field">
           <span>Confirmation code</span>
           <input
@@ -246,8 +264,8 @@ function PasswordTab() {
             onChange={(e) => setCode(e.target.value)}
           />
         </label>
-        <button type="submit" className="save-btn">Confirm change</button>
-        {status === 'error' && <p className="status error">{errorMessage}</p>}
+        <button type="submit" className="save-btn"><i className="fa-solid fa-check" /> Confirm change</button>
+        {status === 'error' && <p className="status error"><i className="fa-solid fa-circle-exclamation" /> {errorMessage}</p>}
         <button type="button" className="logout-link" onClick={() => { setStage('form'); setErrorMessage(''); setStatus('idle'); }}>
           Start over
         </button>
@@ -265,8 +283,8 @@ function PasswordTab() {
         <span>Confirm new password</span>
         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
       </label>
-      <button type="submit" className="save-btn">Send confirmation code</button>
-      {status === 'error' && <p className="status error">{errorMessage}</p>}
+      <button type="submit" className="save-btn"><i className="fa-solid fa-paper-plane" /> Send confirmation code</button>
+      {status === 'error' && <p className="status error"><i className="fa-solid fa-circle-exclamation" /> {errorMessage}</p>}
     </form>
   );
 }
@@ -299,6 +317,7 @@ function LoginScreen({ onSubmit }) {
   return (
     <div className="login-screen">
       <form className="login-box" onSubmit={submit}>
+        <div className="login-icon"><i className="fa-solid fa-lock" /></div>
         <h1>Portfolio CMS</h1>
         <p>Enter the admin password to continue.</p>
         <input
@@ -308,9 +327,9 @@ function LoginScreen({ onSubmit }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {status === 'error' && <p className="status error">{errorMessage}</p>}
+        {status === 'error' && <p className="status error"><i className="fa-solid fa-circle-exclamation" /> {errorMessage}</p>}
         <button type="submit" className="save-btn" disabled={status === 'checking'}>
-          {status === 'checking' ? 'Checking…' : 'Enter'}
+          {status === 'checking' ? <><i className="fa-solid fa-spinner fa-spin" /> Checking…</> : <>Enter <i className="fa-solid fa-arrow-right" /></>}
         </button>
       </form>
     </div>
@@ -331,30 +350,49 @@ export default function AdminApp() {
   };
 
   return (
-    <div className="admin-app">
-      <header className="admin-header">
-        <h1>Portfolio CMS</h1>
-        <p>Edit content, then save — changes go live within moments. <button type="button" className="logout-link" onClick={logout}>Log out</button></p>
-      </header>
-      <nav className="admin-tabs">
-        {TABS.map((t) => (
-          <button
-            key={t}
-            className={t === tab ? 'active' : ''}
-            onClick={() => setTab(t)}
-          >
-            {t}
-          </button>
-        ))}
-      </nav>
-      <main className="admin-content">
-        {tab === 'Work' && <WorkTab />}
-        {tab === 'Education' && <EducationTab />}
-        {tab === 'Banner' && <BannerTab />}
-        {tab === 'Contact' && <ContactTab />}
-        {tab === 'Skills' && <SkillsTab />}
-        {tab === 'Instagram' && <InstaTab />}
-        {tab === 'Password' && <PasswordTab />}
+    <div className="admin-shell">
+      <aside className="admin-sidebar">
+        <div className="sidebar-brand">
+          <img src={hpLogo} alt="" className="brand-logo" />
+          <div>
+            <div className="brand-title">Portfolio CMS</div>
+            <div className="brand-subtitle">Himmatlal Parmar</div>
+          </div>
+        </div>
+        <nav className="sidebar-nav">
+          {TABS.map((t) => (
+            <button
+              key={t}
+              className={`sidebar-nav-item ${t === tab ? 'active' : ''}`}
+              onClick={() => setTab(t)}
+            >
+              <i className={TAB_ICONS[t]} />
+              <span>{t}</span>
+            </button>
+          ))}
+        </nav>
+        <button type="button" className="sidebar-logout" onClick={logout}>
+          <i className="fa-solid fa-right-from-bracket" />
+          <span>Log out</span>
+        </button>
+      </aside>
+      <main className="admin-main">
+        <div className="admin-topbar">
+          <i className={TAB_ICONS[tab]} />
+          <div>
+            <h1>{tab}</h1>
+            <p>Edit content, then save — changes go live within moments.</p>
+          </div>
+        </div>
+        <div className="admin-content" key={tab}>
+          {tab === 'Work' && <WorkTab />}
+          {tab === 'Education' && <EducationTab />}
+          {tab === 'Banner' && <BannerTab />}
+          {tab === 'Contact' && <ContactTab />}
+          {tab === 'Skills' && <SkillsTab />}
+          {tab === 'Instagram' && <InstaTab />}
+          {tab === 'Password' && <PasswordTab />}
+        </div>
       </main>
     </div>
   );
