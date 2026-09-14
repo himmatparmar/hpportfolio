@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import plus from './assets/plus.svg'
-import cardData from './data/work.json'
+import seedWork from './data/work.json'
+import { useContent } from './useContent'
 
 function Work() {
     const [selectedCard, setSelectedCard] = useState(null);
+    const cardData = useContent('work', seedWork);
 
     const handleCardClick = (item) => {
         setSelectedCard(item);

@@ -1,13 +1,11 @@
-import myphoto from './assets/hpPhotoText.png'
 import hpDevText from './assets/hpDevTextNew.png'
 import himmatPhoto from './assets/myBannerPhoto.png'
 import myPhotoMobile from './assets/myPhotoMobileNewUpdated.png'
-import bannerData from './data/banner.json'
-
-const { profileText } = bannerData;
-
+import seedBanner from './data/banner.json'
+import { useContent } from './useContent'
 
 function Banner() {
+  const { profileText } = useContent('banner', seedBanner);
   return (
     <>
     <div className='mobileBanner'>

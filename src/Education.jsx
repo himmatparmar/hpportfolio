@@ -1,6 +1,8 @@
-import cardData from './data/education.json'
+import seedEducation from './data/education.json'
+import { useContent } from './useContent'
 
-function education() {
+function Education() {
+  const cardData = useContent('education', seedEducation);
   return (
     <>
         <div className="hpMainWrapper" id="education">
@@ -20,4 +22,4 @@ function education() {
   )
 }
 
-export default education
+export default Education

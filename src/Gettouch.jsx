@@ -1,8 +1,8 @@
-import gettouchData from './data/gettouch.json'
-
-const { profileText, email } = gettouchData;
+import seedGettouch from './data/gettouch.json'
+import { useContent } from './useContent'
 
 function Gettouch() {
+  const { profileText, email } = useContent('gettouch', seedGettouch);
 
   return (
     <>

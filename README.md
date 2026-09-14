@@ -4,13 +4,13 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 ## Editing content with the CMS
 
-Work experience, education, banner text, contact text, skills, softwares, certificates, and events all live in `src/data/*.json`. Instead of editing those files by hand, run:
+Work experience, education, banner text, contact text, skills, softwares, certificates, and events start out as seed data in `src/data/*.json`, bundled into the site so it always has content to show. Live edits are served from **Netlify Blobs** via Netlify Functions in `netlify/functions/`, so the deployed site always renders the latest saved version (falling back to the bundled seed for anything never edited).
 
-```bash
-npm run cms
-```
+To edit content, open **`/admin.html`** on the deployed site (e.g. `https://your-site.netlify.app/admin.html`), enter the admin password, edit, and save — changes go live within moments, no rebuild needed.
 
-This starts the site (http://localhost:5173) and a local API (http://localhost:4000) together. Open **http://localhost:5173/admin.html** to edit content through a form UI — saving writes straight to the JSON files, and image uploads (Skills tab) land in `public/uploads/`. Refresh the main site to see changes. The admin page is local-only and is not included in `npm run build`.
+**One-time setup after deploying:** in the Netlify dashboard, go to **Site settings → Environment variables** and add `CMS_ADMIN_PASSWORD` with the password you want to gate the admin panel with, then trigger a redeploy. Without it, `/admin.html` can still be viewed but all saves are rejected.
+
+Running `npm run dev` locally serves the site and `/admin.html` too, but Netlify Functions aren't available under plain Vite — pages fall back to the bundled seed data, and admin saves will fail. To test the full round-trip locally, install the Netlify CLI and run `netlify dev` instead, which serves the functions alongside Vite.
 
 Currently, two official plugins are available:
 

@@ -159,3 +159,43 @@ body {
 .image-item-fields { flex: 1; }
 
 h3 { margin-top: 28px; margin-bottom: 10px; }
+
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  background: #fff;
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 320px;
+  text-align: center;
+}
+
+.login-box h1 { margin: 0 0 8px; font-size: 22px; }
+.login-box p { margin: 0 0 18px; color: #666; font-size: 14px; }
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.login-box .save-btn { width: 100%; }
+
+.logout-link {
+  background: none;
+  border: none;
+  color: #4a56e2;
+  cursor: pointer;
+  font-size: inherit;
+  padding: 0;
+  text-decoration: underline;
+}

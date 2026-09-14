@@ -7,11 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "cms:server": "node server/index.js",
-    "cms": "concurrently -n vite,api -c blue,green \"vite\" \"node server/index.js\""
+    "preview": "vite preview"
   },
   "dependencies": {
+    "@netlify/blobs": "^8.2.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -20,14 +19,10 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
-    "concurrently": "^9.1.0",
-    "cors": "^2.8.5",
     "eslint": "^9.29.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "express": "^4.21.2",
     "globals": "^16.2.0",
-    "multer": "^2.3.0",
     "vite": "^7.0.0"
   }
 }

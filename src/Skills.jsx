@@ -1,8 +1,8 @@
-import skillsData from './data/skills.json'
-
-const { skills, softwares, certificates, events } = skillsData;
+import seedSkills from './data/skills.json'
+import { useContent } from './useContent'
 
 function Skills() {
+  const { skills, softwares, certificates, events } = useContent('skills', seedSkills);
   return (
     <>
       <div className="hpMainWrapper skillMainWrapper">

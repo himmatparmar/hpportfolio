@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getSection, saveSection } from './api';
+import { getSection, saveSection, getToken, setToken } from './api';
 import ListEditor from './ListEditor';
 import TextListEditor from './TextListEditor';
 import ImageListEditor from './ImageListEditor';
+import seedWork from '../data/work.json';
+import seedEducation from '../data/education.json';
+import seedBanner from '../data/banner.json';
+import seedGettouch from '../data/gettouch.json';
+import seedSkills from '../data/skills.json';
 import './admin.css';
 
 const TABS = ['Work', 'Education', 'Banner', 'Contact', 'Skills'];
@@ -32,18 +37,16 @@ function SaveBar({ status, onSave }) {
   );
 }
 
-function useSection(section, initial) {
-  const [data, setData] = useState(initial);
+function useSection(section, seed) {
+  const [data, setData] = useState(seed);
   const [status, setStatus] = useState('idle');
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     getSection(section)
-      .then((d) => {
-        setData(d);
-        setLoaded(true);
-      })
-      .catch(() => setStatus('error'));
+      .then((d) => setData(d))
+      .catch(() => {})
+      .finally(() => setLoaded(true));
   }, [section]);
 
   const save = async () => {
@@ -61,7 +64,7 @@ function useSection(section, initial) {
 }
 
 function WorkTab() {
-  const { data, setData, status, save, loaded } = useSection('work', []);
+  const { data, setData, status, save, loaded } = useSection('work', seedWork);
   if (!loaded) return <p>Loading…</p>;
   return (
     <div>
@@ -77,7 +80,7 @@ function WorkTab() {
 }
 
 function EducationTab() {
-  const { data, setData, status, save, loaded } = useSection('education', []);
+  const { data, setData, status, save, loaded } = useSection('education', seedEducation);
   if (!loaded) return <p>Loading…</p>;
   return (
     <div>
@@ -93,7 +96,7 @@ function EducationTab() {
 }
 
 function BannerTab() {
-  const { data, setData, status, save, loaded } = useSection('banner', { profileText: [] });
+  const { data, setData, status, save, loaded } = useSection('banner', seedBanner);
   if (!loaded) return <p>Loading…</p>;
   return (
     <div>
@@ -108,7 +111,7 @@ function BannerTab() {
 }
 
 function ContactTab() {
-  const { data, setData, status, save, loaded } = useSection('gettouch', { profileText: [], email: '' });
+  const { data, setData, status, save, loaded } = useSection('gettouch', seedGettouch);
   if (!loaded) return <p>Loading…</p>;
   return (
     <div>
@@ -131,9 +134,7 @@ function ContactTab() {
 }
 
 function SkillsTab() {
-  const { data, setData, status, save, loaded } = useSection('skills', {
-    skills: [], softwares: [], certificates: [], events: [],
-  });
+  const { data, setData, status, save, loaded } = useSection('skills', seedSkills);
   if (!loaded) return <p>Loading…</p>;
   const setGroup = (key) => (items) => setData({ ...data, [key]: items });
   return (
@@ -151,14 +152,52 @@ function SkillsTab() {
   );
 }
 
+function LoginScreen({ onSubmit }) {
+  const [password, setPassword] = useState('');
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!password) return;
+    setToken(password);
+    onSubmit();
+  };
+
+  return (
+    <div className="login-screen">
+      <form className="login-box" onSubmit={submit}>
+        <h1>Portfolio CMS</h1>
+        <p>Enter the admin password to continue.</p>
+        <input
+          type="password"
+          autoFocus
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit" className="save-btn">Enter</button>
+      </form>
+    </div>
+  );
+}
+
 export default function AdminApp() {
   const [tab, setTab] = useState('Work');
+  const [authed, setAuthed] = useState(() => Boolean(getToken()));
+
+  if (!authed) {
+    return <LoginScreen onSubmit={() => setAuthed(true)} />;
+  }
+
+  const logout = () => {
+    setToken('');
+    setAuthed(false);
+  };
 
   return (
     <div className="admin-app">
       <header className="admin-header">
         <h1>Portfolio CMS</h1>
-        <p>Edit content locally, then save. Refresh the site to see changes.</p>
+        <p>Edit content, then save — changes go live within moments. <button type="button" className="logout-link" onClick={logout}>Log out</button></p>
       </header>
       <nav className="admin-tabs">
         {TABS.map((t) => (
