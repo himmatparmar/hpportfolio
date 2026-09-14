@@ -32,6 +32,11 @@ export async function getSection(section) {
   return res.json();
 }
 
+async function errorMessage(res, fallback) {
+  const body = await res.json().catch(() => ({}));
+  return body.error || fallback;
+}
+
 export async function saveSection(section, data) {
   const res = await fetch(`${FN_BASE}/content?section=${section}`, {
     method: 'PUT',
@@ -42,7 +47,7 @@ export async function saveSection(section, data) {
     handleUnauthorized();
     throw new Error('Unauthorized');
   }
-  if (!res.ok) throw new Error(`Failed to save ${section}`);
+  if (!res.ok) throw new Error(await errorMessage(res, `Failed to save ${section}`));
   return res.json();
 }
 
@@ -57,7 +62,7 @@ export async function uploadImage(file) {
     handleUnauthorized();
     throw new Error('Unauthorized');
   }
-  if (!res.ok) throw new Error('Upload failed');
+  if (!res.ok) throw new Error(await errorMessage(res, 'Upload failed'));
   return res.json();
 }
 

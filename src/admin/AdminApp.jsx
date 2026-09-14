@@ -26,13 +26,13 @@ const EDUCATION_FIELDS = [
   { key: 'expPostion', label: 'Detail' },
 ];
 
-function SaveBar({ status, onSave }) {
+function SaveBar({ status, errorMessage, onSave }) {
   return (
     <div className="save-bar">
       <button type="button" className="save-btn" onClick={onSave}>Save changes</button>
       {status === 'saving' && <span className="status">Saving…</span>}
       {status === 'saved' && <span className="status ok">Saved ✓</span>}
-      {status === 'error' && <span className="status error">Save failed</span>}
+      {status === 'error' && <span className="status error">{errorMessage || 'Save failed'}</span>}
     </div>
   );
 }
@@ -40,6 +40,7 @@ function SaveBar({ status, onSave }) {
 function useSection(section, seed) {
   const [data, setData] = useState(seed);
   const [status, setStatus] = useState('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -55,20 +56,21 @@ function useSection(section, seed) {
       await saveSection(section, data);
       setStatus('saved');
       setTimeout(() => setStatus('idle'), 1500);
-    } catch {
+    } catch (err) {
+      setErrorMessage(err.message);
       setStatus('error');
     }
   };
 
-  return { data, setData, status, save, loaded };
+  return { data, setData, status, errorMessage, save, loaded };
 }
 
 function WorkTab() {
-  const { data, setData, status, save, loaded } = useSection('work', seedWork);
+  const { data, setData, status, errorMessage, save, loaded } = useSection('work', seedWork);
   if (!loaded) return <p>Loading…</p>;
   return (
     <div>
-      <SaveBar status={status} onSave={save} />
+      <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
       <ListEditor
         items={data}
         onChange={setData}
@@ -80,11 +82,11 @@ function WorkTab() {
 }
 
 function EducationTab() {
-  const { data, setData, status, save, loaded } = useSection('education', seedEducation);
+  const { data, setData, status, errorMessage, save, loaded } = useSection('education', seedEducation);
   if (!loaded) return <p>Loading…</p>;
   return (
     <div>
-      <SaveBar status={status} onSave={save} />
+      <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
       <ListEditor
         items={data}
         onChange={setData}
@@ -96,11 +98,11 @@ function EducationTab() {
 }
 
 function BannerTab() {
-  const { data, setData, status, save, loaded } = useSection('banner', seedBanner);
+  const { data, setData, status, errorMessage, save, loaded } = useSection('banner', seedBanner);
   if (!loaded) return <p>Loading…</p>;
   return (
     <div>
-      <SaveBar status={status} onSave={save} />
+      <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
       <h3>About / Banner paragraphs</h3>
       <TextListEditor
         items={data.profileText}
@@ -111,11 +113,11 @@ function BannerTab() {
 }
 
 function ContactTab() {
-  const { data, setData, status, save, loaded } = useSection('gettouch', seedGettouch);
+  const { data, setData, status, errorMessage, save, loaded } = useSection('gettouch', seedGettouch);
   if (!loaded) return <p>Loading…</p>;
   return (
     <div>
-      <SaveBar status={status} onSave={save} />
+      <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
       <label className="field">
         <span>Email</span>
         <input
@@ -134,12 +136,12 @@ function ContactTab() {
 }
 
 function SkillsTab() {
-  const { data, setData, status, save, loaded } = useSection('skills', seedSkills);
+  const { data, setData, status, errorMessage, save, loaded } = useSection('skills', seedSkills);
   if (!loaded) return <p>Loading…</p>;
   const setGroup = (key) => (items) => setData({ ...data, [key]: items });
   return (
     <div>
-      <SaveBar status={status} onSave={save} />
+      <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
       <h3>Skills</h3>
       <ImageListEditor items={data.skills} onChange={setGroup('skills')} />
       <h3>Softwares</h3>

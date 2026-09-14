@@ -1,4 +1,5 @@
 import { connectLambda, getStore } from '@netlify/blobs';
+import { checkAuth } from './_auth.js';
 
 const MAX_BYTES = 4 * 1024 * 1024; // stay safely under Netlify Functions' payload limit
 
@@ -10,18 +11,12 @@ function json(body, status = 200) {
   };
 }
 
-function isAuthorized(event) {
-  const password = process.env.CMS_ADMIN_PASSWORD;
-  if (!password) return false;
-  const auth = event.headers.authorization || event.headers.Authorization || '';
-  return auth.replace(/^Bearer\s+/i, '') === password;
-}
-
 export const handler = async (event) => {
   connectLambda(event);
 
   if (event.httpMethod !== 'POST') return json({ error: 'Method not allowed' }, 405);
-  if (!isAuthorized(event)) return json({ error: 'Unauthorized' }, 401);
+  const auth = checkAuth(event);
+  if (!auth.ok) return json({ error: auth.error }, auth.status);
 
   let payload;
   try {

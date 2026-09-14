@@ -1,4 +1,5 @@
 import { connectLambda, getStore } from '@netlify/blobs';
+import { checkAuth } from './_auth.js';
 import seedWork from '../../src/data/work.json';
 import seedEducation from '../../src/data/education.json';
 import seedBanner from '../../src/data/banner.json';
@@ -21,13 +22,6 @@ function json(body, status = 200) {
   };
 }
 
-function isAuthorized(event) {
-  const password = process.env.CMS_ADMIN_PASSWORD;
-  if (!password) return false;
-  const auth = event.headers.authorization || event.headers.Authorization || '';
-  return auth.replace(/^Bearer\s+/i, '') === password;
-}
-
 export const handler = async (event) => {
   connectLambda(event);
 
@@ -44,7 +38,8 @@ export const handler = async (event) => {
   }
 
   if (event.httpMethod === 'PUT') {
-    if (!isAuthorized(event)) return json({ error: 'Unauthorized' }, 401);
+    const auth = checkAuth(event);
+    if (!auth.ok) return json({ error: auth.error }, auth.status);
     let data;
     try {
       data = JSON.parse(event.body);
