@@ -1,4 +1,4 @@
-import { getStore } from '@netlify/blobs';
+import { connectLambda, getStore } from '@netlify/blobs';
 
 const MAX_BYTES = 4 * 1024 * 1024; // stay safely under Netlify Functions' payload limit
 
@@ -18,6 +18,8 @@ function isAuthorized(event) {
 }
 
 export const handler = async (event) => {
+  connectLambda(event);
+
   if (event.httpMethod !== 'POST') return json({ error: 'Method not allowed' }, 405);
   if (!isAuthorized(event)) return json({ error: 'Unauthorized' }, 401);
 

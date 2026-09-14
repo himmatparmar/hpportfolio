@@ -1,4 +1,4 @@
-import { getStore } from '@netlify/blobs';
+import { connectLambda, getStore } from '@netlify/blobs';
 import seedWork from '../../src/data/work.json';
 import seedEducation from '../../src/data/education.json';
 import seedBanner from '../../src/data/banner.json';
@@ -29,6 +29,8 @@ function isAuthorized(event) {
 }
 
 export const handler = async (event) => {
+  connectLambda(event);
+
   const section = event.queryStringParameters?.section;
   if (!section || !SEEDS[section]) {
     return json({ error: 'Unknown section' }, 404);

@@ -1,6 +1,8 @@
-import { getStore } from '@netlify/blobs';
+import { connectLambda, getStore } from '@netlify/blobs';
 
 export const handler = async (event) => {
+  connectLambda(event);
+
   const key = event.queryStringParameters?.key;
   if (!key) return { statusCode: 400, body: 'Missing key' };
 
