@@ -8,9 +8,10 @@ import seedEducation from '../data/education.json';
 import seedBanner from '../data/banner.json';
 import seedGettouch from '../data/gettouch.json';
 import seedSkills from '../data/skills.json';
+import seedInsta from '../data/insta.json';
 import './admin.css';
 
-const TABS = ['Work', 'Education', 'Banner', 'Contact', 'Skills', 'Password'];
+const TABS = ['Work', 'Education', 'Banner', 'Contact', 'Skills', 'Instagram', 'Password'];
 
 const WORK_FIELDS = [
   { key: 'expCompany', label: 'Company' },
@@ -150,6 +151,32 @@ function SkillsTab() {
       <ImageListEditor items={data.certificates} onChange={setGroup('certificates')} />
       <h3>Events</h3>
       <ImageListEditor items={data.events} onChange={setGroup('events')} />
+    </div>
+  );
+}
+
+function InstaTab() {
+  const { data, setData, status, errorMessage, save, loaded } = useSection('insta', seedInsta);
+  if (!loaded) return <p>Loading…</p>;
+  return (
+    <div>
+      <SaveBar status={status} errorMessage={errorMessage} onSave={save} />
+      <label className="field">
+        <span>Instagram profile URL ("View more..." link)</span>
+        <input
+          type="text"
+          value={data.profileUrl}
+          onChange={(e) => setData({ ...data, profileUrl: e.target.value })}
+        />
+      </label>
+      <h3>Post URLs</h3>
+      <TextListEditor
+        items={data.postUrls}
+        onChange={(postUrls) => setData({ ...data, postUrls })}
+        itemLabel="Post"
+        addLabel="+ Add post URL"
+        rows={1}
+      />
     </div>
   );
 }
@@ -326,6 +353,7 @@ export default function AdminApp() {
         {tab === 'Banner' && <BannerTab />}
         {tab === 'Contact' && <ContactTab />}
         {tab === 'Skills' && <SkillsTab />}
+        {tab === 'Instagram' && <InstaTab />}
         {tab === 'Password' && <PasswordTab />}
       </main>
     </div>

@@ -1,28 +1,27 @@
 import React, { useEffect } from 'react';
+import seedInsta from './data/insta.json';
+import { useContent } from './useContent';
 
 const Insta = () => {
-  // 1. Array of your specific public Instagram post URLs
-  const postUrls = [
-    "https://www.instagram.com/p/DYufreViBTg/",
-    "https://www.instagram.com/p/DYcO1rwCLL1/",
-    "https://www.instagram.com/p/DYAGEjliMnO/",
-  ];
+  const { profileUrl, postUrls } = useContent('insta', seedInsta);
 
-  // 2. Automatically load Instagram's official embed script when the component mounts
+  // Load Instagram's official embed script once, then re-process the
+  // blockquotes whenever postUrls changes (e.g. once live CMS data arrives).
   useEffect(() => {
-    // Check if the script is already appended to prevent duplicate script tags
+    if (window.instgrm) {
+      window.instgrm.Embeds.process();
+      return;
+    }
     if (!document.getElementById('instagram-embed-script')) {
       const script = document.createElement('script');
       script.id = 'instagram-embed-script';
       script.src = 'https://www.instagram.com/embed.js';
       script.async = true;
       script.defer = true;
+      script.onload = () => window.instgrm?.Embeds.process();
       document.body.appendChild(script);
-    } else if (window.instgrm) {
-      // If script is already loaded elsewhere, force re-processing of the blockquotes
-      window.instgrm.Embeds.process();
     }
-  }, []);
+  }, [postUrls]);
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }} id='insta'>
@@ -84,9 +83,9 @@ const Insta = () => {
           </div>
         ))}
       </div>
-      <a 
-          href="https://www.instagram.com/hpphotography_785/" 
-          target="_blank" 
+      <a
+          href={profileUrl}
+          target="_blank"
           rel="noopener noreferrer"
           className='hpGridCompCenter instaLinkView'
         >

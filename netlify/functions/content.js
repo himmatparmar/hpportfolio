@@ -5,6 +5,7 @@ import seedEducation from '../../src/data/education.json';
 import seedBanner from '../../src/data/banner.json';
 import seedGettouch from '../../src/data/gettouch.json';
 import seedSkills from '../../src/data/skills.json';
+import seedInsta from '../../src/data/insta.json';
 
 const SEEDS = {
   work: seedWork,
@@ -12,6 +13,7 @@ const SEEDS = {
   banner: seedBanner,
   gettouch: seedGettouch,
   skills: seedSkills,
+  insta: seedInsta,
 };
 
 function json(body, status = 200) {

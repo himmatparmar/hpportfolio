@@ -6,7 +6,7 @@ function move(items, index, direction) {
   return copy;
 }
 
-export default function TextListEditor({ items, onChange }) {
+export default function TextListEditor({ items, onChange, itemLabel = 'Paragraph', addLabel = '+ Add paragraph', rows = 4 }) {
   const updateItem = (index, value) => {
     onChange(items.map((item, i) => (i === index ? value : item)));
   };
@@ -16,17 +16,21 @@ export default function TextListEditor({ items, onChange }) {
       {items.map((text, index) => (
         <div className="list-item" key={index}>
           <div className="list-item-header">
-            <span>Paragraph {index + 1}</span>
+            <span>{itemLabel} {index + 1}</span>
             <div className="list-item-actions">
               <button type="button" onClick={() => onChange(move(items, index, -1))} disabled={index === 0}>↑</button>
               <button type="button" onClick={() => onChange(move(items, index, 1))} disabled={index === items.length - 1}>↓</button>
               <button type="button" className="danger" onClick={() => onChange(items.filter((_, i) => i !== index))}>Delete</button>
             </div>
           </div>
-          <textarea rows={4} value={text} onChange={(e) => updateItem(index, e.target.value)} />
+          {rows === 1 ? (
+            <input type="text" value={text} onChange={(e) => updateItem(index, e.target.value)} />
+          ) : (
+            <textarea rows={rows} value={text} onChange={(e) => updateItem(index, e.target.value)} />
+          )}
         </div>
       ))}
-      <button type="button" className="add-btn" onClick={() => onChange([...items, ''])}>+ Add paragraph</button>
+      <button type="button" className="add-btn" onClick={() => onChange([...items, ''])}>{addLabel}</button>
     </div>
   );
 }
