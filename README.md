@@ -10,6 +10,17 @@ To edit content, open **`/admin.html`** on the deployed site (e.g. `https://your
 
 **One-time setup after deploying:** in the Netlify dashboard, go to **Site settings → Environment variables** and add `CMS_ADMIN_PASSWORD` with the password you want to gate the admin panel with, then trigger a redeploy. Without it, `/admin.html` can still be viewed but all saves are rejected.
 
+**Changing the password from the admin UI:** the "Password" tab lets you set a new password yourself, confirmed by a 6-digit code emailed to you (expires in 10 minutes). This needs your own Gmail account wired up to send that email:
+
+1. Turn on 2-Step Verification on the Google account you want to send from, if it isn't already (myaccount.google.com/security).
+2. Generate an App Password at [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) (name it e.g. "Portfolio CMS") — copy the 16-character password it gives you.
+3. In Netlify → **Site settings → Environment variables**, add:
+   - `GMAIL_USER` — the Gmail address itself
+   - `GMAIL_APP_PASSWORD` — the 16-character app password from step 2 (not your normal Gmail password)
+4. Trigger a redeploy.
+
+Once changed, the new password is stored (hashed) in Netlify Blobs and takes over from `CMS_ADMIN_PASSWORD` — the env var stops being checked after the first successful change.
+
 Running `npm run dev` locally serves the site and `/admin.html` too, but Netlify Functions aren't available under plain Vite — pages fall back to the bundled seed data, and admin saves will fail. To test the full round-trip locally, install the Netlify CLI and run `netlify dev` instead, which serves the functions alongside Vite.
 
 Currently, two official plugins are available:

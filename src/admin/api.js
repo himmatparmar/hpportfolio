@@ -66,6 +66,34 @@ export async function uploadImage(file) {
   return res.json();
 }
 
+export async function requestPasswordChange(newPassword) {
+  const res = await fetch(`${FN_BASE}/password-change-request`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
+    body: JSON.stringify({ newPassword }),
+  });
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error('Unauthorized');
+  }
+  if (!res.ok) throw new Error(await errorMessage(res, 'Failed to send confirmation code'));
+  return res.json();
+}
+
+export async function confirmPasswordChange(code) {
+  const res = await fetch(`${FN_BASE}/password-change-confirm`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
+    body: JSON.stringify({ code }),
+  });
+  if (res.status === 401) {
+    handleUnauthorized();
+    throw new Error('Unauthorized');
+  }
+  if (!res.ok) throw new Error(await errorMessage(res, 'Failed to confirm password change'));
+  return res.json();
+}
+
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

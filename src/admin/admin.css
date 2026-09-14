@@ -199,3 +199,16 @@ h3 { margin-top: 28px; margin-bottom: 10px; }
   padding: 0;
   text-decoration: underline;
 }
+
+.password-form {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 360px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.password-form p { margin-top: 0; color: #555; font-size: 14px; }
+.password-form .save-btn { width: 100%; margin-top: 4px; }
+.password-form .logout-link { display: block; margin-top: 14px; text-align: center; }
+.password-form .status.error { margin-top: 10px; }

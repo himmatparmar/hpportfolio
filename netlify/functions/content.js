@@ -38,7 +38,7 @@ export const handler = async (event) => {
   }
 
   if (event.httpMethod === 'PUT') {
-    const auth = checkAuth(event);
+    const auth = await checkAuth(event);
     if (!auth.ok) return json({ error: auth.error }, auth.status);
     let data;
     try {

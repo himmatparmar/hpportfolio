@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getSection, saveSection, getToken, setToken } from './api';
+import { getSection, saveSection, getToken, setToken, requestPasswordChange, confirmPasswordChange } from './api';
 import ListEditor from './ListEditor';
 import TextListEditor from './TextListEditor';
 import ImageListEditor from './ImageListEditor';
@@ -10,7 +10,7 @@ import seedGettouch from '../data/gettouch.json';
 import seedSkills from '../data/skills.json';
 import './admin.css';
 
-const TABS = ['Work', 'Education', 'Banner', 'Contact', 'Skills'];
+const TABS = ['Work', 'Education', 'Banner', 'Contact', 'Skills', 'Password'];
 
 const WORK_FIELDS = [
   { key: 'expCompany', label: 'Company' },
@@ -154,6 +154,96 @@ function SkillsTab() {
   );
 }
 
+function PasswordTab() {
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [code, setCode] = useState('');
+  const [stage, setStage] = useState('form'); // 'form' | 'code' | 'done'
+  const [status, setStatus] = useState('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const sendCode = async (e) => {
+    e.preventDefault();
+    if (newPassword.length < 8) {
+      setErrorMessage('New password must be at least 8 characters');
+      setStatus('error');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      setStatus('error');
+      return;
+    }
+    setStatus('saving');
+    try {
+      await requestPasswordChange(newPassword);
+      setStage('code');
+      setStatus('idle');
+      setErrorMessage('');
+    } catch (err) {
+      setErrorMessage(err.message);
+      setStatus('error');
+    }
+  };
+
+  const confirm = async (e) => {
+    e.preventDefault();
+    setStatus('saving');
+    try {
+      await confirmPasswordChange(code);
+      setToken(newPassword);
+      setStage('done');
+      setStatus('idle');
+    } catch (err) {
+      setErrorMessage(err.message);
+      setStatus('error');
+    }
+  };
+
+  if (stage === 'done') {
+    return <p>Password changed — you're still logged in with the new password.</p>;
+  }
+
+  if (stage === 'code') {
+    return (
+      <form className="password-form" onSubmit={confirm}>
+        <p>Enter the 6-digit code emailed to you. It expires in 10 minutes.</p>
+        <label className="field">
+          <span>Confirmation code</span>
+          <input
+            type="text"
+            inputMode="numeric"
+            maxLength={6}
+            autoFocus
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+          />
+        </label>
+        <button type="submit" className="save-btn">Confirm change</button>
+        {status === 'error' && <p className="status error">{errorMessage}</p>}
+        <button type="button" className="logout-link" onClick={() => { setStage('form'); setErrorMessage(''); setStatus('idle'); }}>
+          Start over
+        </button>
+      </form>
+    );
+  }
+
+  return (
+    <form className="password-form" onSubmit={sendCode}>
+      <label className="field">
+        <span>New password</span>
+        <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+      </label>
+      <label className="field">
+        <span>Confirm new password</span>
+        <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+      </label>
+      <button type="submit" className="save-btn">Send confirmation code</button>
+      {status === 'error' && <p className="status error">{errorMessage}</p>}
+    </form>
+  );
+}
+
 function LoginScreen({ onSubmit }) {
   const [password, setPassword] = useState('');
 
@@ -218,6 +308,7 @@ export default function AdminApp() {
         {tab === 'Banner' && <BannerTab />}
         {tab === 'Contact' && <ContactTab />}
         {tab === 'Skills' && <SkillsTab />}
+        {tab === 'Password' && <PasswordTab />}
       </main>
     </div>
   );

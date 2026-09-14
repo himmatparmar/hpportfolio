@@ -15,7 +15,7 @@ export const handler = async (event) => {
   connectLambda(event);
 
   if (event.httpMethod !== 'POST') return json({ error: 'Method not allowed' }, 405);
-  const auth = checkAuth(event);
+  const auth = await checkAuth(event);
   if (!auth.ok) return json({ error: auth.error }, auth.status);
 
   let payload;
