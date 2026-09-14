@@ -40,9 +40,9 @@ const Insta = () => {
         justifyContent: 'center', 
         gap: '20px' 
       }}>
-        {postUrls.map((url, index) => (
-          <div 
-            key={index} 
+        {postUrls.map((url) => (
+          <div
+            key={url}
             style={{ 
               width: '100%', 
               maxWidth: '328px', 
