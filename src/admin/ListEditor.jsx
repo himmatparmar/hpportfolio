@@ -1,3 +1,5 @@
+import { useDragReorder } from './useDragReorder';
+
 function nextId(items) {
   return items.length ? Math.max(...items.map((i) => i.id)) + 1 : 1;
 }
@@ -11,6 +13,8 @@ function move(items, index, direction) {
 }
 
 export default function ListEditor({ items, onChange, fields, emptyItem }) {
+  const { dragHandleProps, containerProps } = useDragReorder(items, onChange);
+
   const updateField = (index, key, value) => {
     const copy = items.map((item, i) => (i === index ? { ...item, [key]: value } : item));
     onChange(copy);
@@ -26,10 +30,12 @@ export default function ListEditor({ items, onChange, fields, emptyItem }) {
 
   return (
     <div className="list-editor">
-      {items.map((item, index) => (
-        <div className="list-item" key={item.id}>
+      {items.map((item, index) => {
+        const { isDragOver, ...dragEvents } = containerProps(index);
+        return (
+        <div className={`list-item${isDragOver ? ' drag-over' : ''}`} key={item.id} {...dragEvents}>
           <div className="list-item-header">
-            <span>#{index + 1}</span>
+            <span className="drag-handle" {...dragHandleProps(index)} title="Drag to reorder">⠿ #{index + 1}</span>
             <div className="list-item-actions">
               <button type="button" onClick={() => onChange(move(items, index, -1))} disabled={index === 0}>↑</button>
               <button type="button" onClick={() => onChange(move(items, index, 1))} disabled={index === items.length - 1}>↓</button>
@@ -55,7 +61,8 @@ export default function ListEditor({ items, onChange, fields, emptyItem }) {
             </label>
           ))}
         </div>
-      ))}
+        );
+      })}
       <button type="button" className="add-btn" onClick={addItem}>+ Add item</button>
     </div>
   );

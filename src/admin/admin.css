@@ -94,6 +94,20 @@ body {
   color: #444;
 }
 
+.list-item.drag-over, .image-item.drag-over {
+  outline: 2px dashed #4a56e2;
+  outline-offset: 2px;
+}
+
+.drag-handle {
+  cursor: grab;
+  user-select: none;
+  color: #999;
+  letter-spacing: 1px;
+}
+
+.drag-handle:active { cursor: grabbing; }
+
 .list-item-actions { display: flex; gap: 6px; }
 
 .list-item-actions button {
@@ -120,7 +134,8 @@ body {
   margin-bottom: 4px;
 }
 
-.field input[type="text"], .field textarea, .field input[type="file"] {
+.field input[type="text"], .field textarea, .field input[type="file"],
+.text-list-editor input[type="text"], .text-list-editor textarea {
   width: 100%;
   padding: 8px 10px;
   border: 1px solid #ddd;
