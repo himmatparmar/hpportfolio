@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getSection, saveSection, getToken, setToken, requestPasswordChange, confirmPasswordChange } from './api';
+import { getSection, saveSection, getToken, setToken, verifyLogin, requestPasswordChange, confirmPasswordChange } from './api';
 import ListEditor from './ListEditor';
 import TextListEditor from './TextListEditor';
 import ImageListEditor from './ImageListEditor';
@@ -246,12 +246,27 @@ function PasswordTab() {
 
 function LoginScreen({ onSubmit }) {
   const [password, setPassword] = useState('');
+  const [status, setStatus] = useState('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!password) return;
-    setToken(password);
-    onSubmit();
+    setStatus('checking');
+    setErrorMessage('');
+    try {
+      const valid = await verifyLogin(password);
+      if (!valid) {
+        setErrorMessage('Incorrect password.');
+        setStatus('error');
+        return;
+      }
+      setToken(password);
+      onSubmit();
+    } catch (err) {
+      setErrorMessage(err.message);
+      setStatus('error');
+    }
   };
 
   return (
@@ -266,7 +281,10 @@ function LoginScreen({ onSubmit }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" className="save-btn">Enter</button>
+        {status === 'error' && <p className="status error">{errorMessage}</p>}
+        <button type="submit" className="save-btn" disabled={status === 'checking'}>
+          {status === 'checking' ? 'Checking…' : 'Enter'}
+        </button>
       </form>
     </div>
   );

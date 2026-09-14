@@ -26,6 +26,15 @@ function handleUnauthorized() {
   window.location.reload();
 }
 
+export async function verifyLogin(password) {
+  const res = await fetch(`${FN_BASE}/auth-verify`, {
+    headers: { Authorization: `Bearer ${password}` },
+  });
+  if (res.ok) return true;
+  if (res.status === 401) return false;
+  throw new Error(await errorMessage(res, 'Could not verify password'));
+}
+
 export async function getSection(section) {
   const res = await fetch(`${FN_BASE}/content?section=${section}`);
   if (!res.ok) throw new Error(`Failed to load ${section}`);
