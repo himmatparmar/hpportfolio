@@ -373,17 +373,17 @@ html {
 }
 
 .popup button {
-  color: white;
-  border: none;
+  color: #fff;
   border-radius: 6px;
   cursor: pointer;
   background: transparent;
   font-size: 20px;
   padding: 8px;
-  font-weight: bold;
+  font-weight: 700;
   position: relative;
   right: -6px;
   top: -7px;
+  border: solid 1px #000;
 }
 
 .popupSubtitle{
