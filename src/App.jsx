@@ -11,6 +11,7 @@ import Footer from './Footer';
 import logo from './assets/loaderImage.png';
 import Navbar from './Navbar';
 import MobileMenu from './MobileMenu';
+import LoaderCharacter from './LoaderCharacter';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -50,6 +51,7 @@ function App() {
     <>
       {loading ? (
         <div className={`loader-screen ${tvClose ? 'tv-close' : ''}`}>
+        <LoaderCharacter />
         <img src={logo} alt="Loader" className='loaderImg'/>
           <div className="moving-line-container">
             <div className="moving-line"></div>
