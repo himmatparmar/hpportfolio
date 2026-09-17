@@ -64,7 +64,15 @@ function ContactModal({ open, onClose }) {
               </label>
               <label>
                 <span>Number</span>
-                <input type="tel" required maxLength={50} value={form.phone} onChange={update('phone')} />
+                <input
+                  type="tel"
+                  required
+                  maxLength={20}
+                  pattern="\+?[0-9\s\-()]{7,20}"
+                  title="Enter a valid phone number (at least 7 digits)"
+                  value={form.phone}
+                  onChange={update('phone')}
+                />
               </label>
               <label>
                 <span>Message</span>
