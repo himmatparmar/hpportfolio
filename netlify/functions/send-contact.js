@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_RE = /^\+?[0-9\s\-()]{7,20}$/;
+const PHONE_RE = /^[0-9]{10}$/;
 
 function json(body, status = 200) {
   return {
@@ -32,9 +32,8 @@ export const handler = async (event) => {
   if (!EMAIL_RE.test(email)) {
     return json({ error: 'Enter a valid email address' }, 400);
   }
-  const digitCount = (phone.match(/\d/g) || []).length;
-  if (!PHONE_RE.test(phone) || digitCount < 7) {
-    return json({ error: 'Enter a valid phone number' }, 400);
+  if (!PHONE_RE.test(phone)) {
+    return json({ error: 'Enter a valid 10-digit phone number' }, 400);
   }
   if (name.length > 200 || message.length > 5000) {
     return json({ error: 'One of the fields is too long' }, 400);

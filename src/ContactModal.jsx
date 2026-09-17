@@ -11,6 +11,11 @@ function ContactModal({ open, onClose }) {
 
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
+  const updatePhone = (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+    setForm((f) => ({ ...f, phone: digits }));
+  };
+
   const close = () => {
     onClose();
     setTimeout(() => {
@@ -66,12 +71,13 @@ function ContactModal({ open, onClose }) {
                 <span>Number</span>
                 <input
                   type="tel"
+                  inputMode="numeric"
                   required
-                  maxLength={20}
-                  pattern="\+?[0-9\s\-()]{7,20}"
-                  title="Enter a valid phone number (at least 7 digits)"
+                  maxLength={10}
+                  pattern="[0-9]{10}"
+                  title="Enter a 10-digit phone number"
                   value={form.phone}
-                  onChange={update('phone')}
+                  onChange={updatePhone}
                 />
               </label>
               <label>
