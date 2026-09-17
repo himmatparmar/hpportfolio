@@ -282,6 +282,13 @@ html {
   border: solid 1px var(--green);
   transition: all ease-in-out .15s;
   -webkit-transition: all ease-in-out .15s;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.sayHello:disabled{
+  opacity: .6;
+  cursor: default;
 }
 
 .sayHello:hover{
@@ -387,6 +394,72 @@ html {
 
 .popupTextDetails{
   margin-bottom: 20px;
+}
+
+.contact-popup {
+  width: 420px;
+  max-width: 92vw;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-form label {
+  display: block;
+  text-align: left;
+}
+
+.contact-form label span {
+  display: block;
+  font-size: 13px;
+  color: var(--green);
+  margin-bottom: 5px;
+  font-family: "Alata", sans-serif;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  background: #0d0d0d;
+  border: 1px solid rgba(33, 224, 36, 0.35);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px rgba(33, 224, 36, 0.2);
+}
+
+.contact-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.contact-error {
+  color: #ff6b6b;
+  font-size: 13px;
+  margin: 0;
+}
+
+.contact-form button[type="submit"] {
+  align-self: flex-start;
+}
+
+.contact-sent p {
+  margin-bottom: 16px;
 }
 
 .certificate{

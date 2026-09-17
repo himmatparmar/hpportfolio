@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import seedGettouch from './data/gettouch.json'
 import { useContent } from './useContent'
+import ContactModal from './ContactModal'
 
 function Gettouch() {
   const { profileText, email } = useContent('gettouch', seedGettouch);
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -21,9 +24,10 @@ function Gettouch() {
               </p>
           </div>
           <div className='hpGridCompCenter sayHelloWrapper'>
-              <a className='sayHello' href={`mailto:${email}`}>Say Hello</a>
+              <button type='button' className='sayHello' onClick={() => setModalOpen(true)}>Say Hello</button>
           </div>
         </div>
+        <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   )
 }
