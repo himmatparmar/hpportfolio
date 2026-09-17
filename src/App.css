@@ -366,7 +366,7 @@ html {
 }
 
 .popUpBodayContent{
-  max-height: 65dvh;
+  max-height: 73dvh;
   overflow: auto;
   margin-top: -41px;
   padding-right: 20px;
@@ -397,7 +397,7 @@ html {
 }
 
 .contact-popup {
-  width: 420px;
+  width: 500px;
   max-width: 92vw;
 }
 
