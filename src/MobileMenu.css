@@ -62,27 +62,41 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100vh; /* fallback for browsers without dvh support */
+    height: 100dvh; /* tracks the real visible viewport instead of oscillating as the address bar shows/hides */
     background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
     z-index: 2000;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     /* Droplet starting point: Small circle right over the button */
     clip-path: circle(0px at calc(100% - 60px) calc(100% - 60px));
-    
+
     /* Using custom cubic-bezier curve to give it a liquid bounce/snap speed */
     transition: clip-path 0.65s cubic-bezier(0.77, 0, 0.175, 1);
+
+    /* Promote to its own GPU layer up front so the clip-path + backdrop-filter
+       combo doesn't get re-rasterized every frame — the main source of visible
+       flicker on real mobile hardware (doesn't reproduce in desktop devtools). */
+    will-change: clip-path;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
   /* Droplet Expansion State */
   .mobile-nav-overlay.active {
     /* Expands out symmetrically like a drop hitting water */
     clip-path: circle(150% at calc(100% - 60px) calc(100% - 60px));
+
+    /* Blur only while actually open — kept off the base rule so the browser
+       isn't continuously compositing a full-viewport blur layer behind a
+       0px-clipped (invisible) overlay during normal page scroll. */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
   }
 
   /* Navigation Links Layout */
